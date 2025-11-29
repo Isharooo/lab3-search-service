@@ -1,5 +1,19 @@
-*
-!target/*-runner
-!target/*-runner.jar
-!target/lib/*
-!target/quarkus-app/*
+# Ignore build output except what we need
+target/
+!target/quarkus-app/
+
+# IDE files
+.idea/
+*.iml
+
+# Git
+.git/
+.gitignore
+
+# Docker files
+Dockerfile*
+.dockerignore
+
+# Other
+README.md
+*.md
