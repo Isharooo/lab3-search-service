@@ -1,22 +1,9 @@
-# Build stage
-FROM eclipse-temurin:17-jdk-alpine AS build
+FROM maven:3.9-eclipse-temurin-17-alpine AS build
 WORKDIR /app
-
-# Copy maven wrapper and pom
-COPY .mvn .mvn
-COPY mvnw pom.xml ./
-
-# Make mvnw executable
-RUN chmod +x mvnw
-
-# Download dependencies
-RUN ./mvnw dependency:go-offline -B || true
-
-# Copy source code
+COPY pom.xml ./
+RUN mvn dependency:go-offline -B || true
 COPY src ./src
-
-# Build application (Quarkus creates a quarkus-run.jar in target/quarkus-app/)
-RUN ./mvnw clean package -DskipTests -B
+RUN mvn clean package -DskipTests -B
 
 # Runtime stage
 FROM eclipse-temurin:17-jre-alpine
