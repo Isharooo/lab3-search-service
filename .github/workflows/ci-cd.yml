@@ -32,7 +32,7 @@ jobs:
         run: ./mvnw clean compile -B
 
       - name: Run tests
-        run: ./mvnw test -B -DskipTests
+        run: ./mvnw test -B
 
       - name: Package application
         run: ./mvnw package -DskipTests -B
