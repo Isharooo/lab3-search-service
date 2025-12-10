@@ -25,12 +25,12 @@ spec:
             - name: FRONTEND_URL
               value: "https://lab3-frontend1.app.cloud.cbh.kth.se"
 
-            # Kafka Config
+
+
             - name: KAFKA_BOOTSTRAP_SERVERS
-              value: "kafka-service:9092"
+              value: "kafka-service1:9092"
 
             # --- Database Config (MariaDB) ---
-            # Dessa värden är hämtade direkt från din screenshot på lab3-mariadb1
             - name: DB_HOST
               value: "lab3-mariadb1"
             - name: DB_PORT
@@ -43,7 +43,6 @@ spec:
               value: "journal_user"
 
             # Lösenord från din screenshot (lab3-mariadb1)
-            # OBS: I produktion bör detta ligga i en Secret, men för labben funkar detta
             - name: DB_PASSWORD
               value: "journal_pass123"
 
