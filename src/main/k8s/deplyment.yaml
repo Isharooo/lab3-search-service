@@ -21,24 +21,32 @@ spec:
           ports:
             - containerPort: 8083
           env:
-            - name: POSTGRES_HOST
-              value: "postgres-service"
-            - name: POSTGRES_PORT
-              value: "5432"
-            - name: POSTGRES_DB
-              value: "search_db"
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: username
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: password
+            # Frontend URL för CORS (Matchar din screenshot)
+            - name: FRONTEND_URL
+              value: "https://lab3-frontend1.app.cloud.cbh.kth.se"
+
+            # Kafka Config
             - name: KAFKA_BOOTSTRAP_SERVERS
               value: "kafka-service:9092"
+
+            # --- Database Config (MariaDB) ---
+            # Dessa värden är hämtade direkt från din screenshot på lab3-mariadb1
+            - name: DB_HOST
+              value: "lab3-mariadb1"
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_NAME
+              value: "patient_journal_db"
+
+            # Användarnamn från din screenshot (lab3-mariadb1)
+            - name: DB_USER
+              value: "journal_user"
+
+            # Lösenord från din screenshot (lab3-mariadb1)
+            # OBS: I produktion bör detta ligga i en Secret, men för labben funkar detta
+            - name: DB_PASSWORD
+              value: "journal_pass123"
+
           resources:
             requests:
               memory: "512Mi"
@@ -62,7 +70,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: search-service
+  name: search-service-service
   labels:
     app: search-service
 spec:
@@ -73,4 +81,4 @@ spec:
     - protocol: TCP
       port: 8083
       targetPort: 8083
-      nodePort: 30085
+      nodePort: 30084
